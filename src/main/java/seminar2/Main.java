@@ -7,9 +7,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        FamilyTree tree = new FamilyTree();
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        //FamilyTree tree = new FamilyTree();
 
+        String path = "src/main/java/seminar2/output.txt";
+
+        FamilyTree tree = load(path);
 
         // ------добавление людей ----------
 
@@ -48,14 +51,19 @@ public class Main {
 
        // ------- метод для записи потока ----------
 
-        String path = "src/main/java/seminar2/output.txt";
 
-        save(tree, path);
+        //save(tree, path);
+
 
     }
 
     private static void save(FamilyTree tree, String path) throws IOException {
         Writable file = new FileHandler();
         file.save((Serializable) tree, path);
+    }
+
+    private static FamilyTree load(String path) throws IOException, ClassNotFoundException {
+        Writable file = new FileHandler();
+        return (FamilyTree) file.load(path);
     }
 }
